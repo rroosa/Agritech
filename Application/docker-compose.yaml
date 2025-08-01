@@ -1,12 +1,11 @@
 version: '3'
 services:
   serviceagritech:
-      image: rosazuccara/microservice-serviceagritech:agritech_v1
+      image: rosazuccara/microservice-serviceagritech:agritech_citrus_v1
       restart: always
       volumes:
-        - $HOME/.aws:/root/.aws:ro
         - type: bind
-          source: config_serviceAgritech.cfg
+          source: ./config_serviceAgritech.cfg
           target: /ServiceAgritech/config_serviceAgritech.cfg
           read_only: true
       healthcheck:
@@ -20,7 +19,7 @@ services:
 
 
   gateway:
-      image: rosazuccara/microservice-gateway:agritech_v1
+      image: rosazuccara/microservice-gateway:agritech_citrus_v1
       restart: always
       depends_on:
         - serviceagritech
@@ -32,7 +31,7 @@ services:
             start_period: 60s
       volumes:
         - type: bind
-          source: config_gateway.cfg
+          source: ./config_gateway.cfg
           target: /Gateway/config_gateway.cfg
           read_only: true
       environment:
